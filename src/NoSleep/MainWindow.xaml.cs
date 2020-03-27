@@ -17,6 +17,13 @@ namespace NoSleep
             dispatcherTimer.Tick += displayLastUserActivity_tick;
             dispatcherTimer.Interval = TimeSpan.FromMilliseconds(100);
             dispatcherTimer.Start();
+
+            if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
+            {
+                System.Deployment.Application.ApplicationDeployment cd =
+                    System.Deployment.Application.ApplicationDeployment.CurrentDeployment;
+                NoSleepWindow.Title = $"NoSleep - Yaplex Inc. (https://www.yaplex.com) - {cd.CurrentVersion}";
+            }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -39,6 +46,29 @@ namespace NoSleep
         {
             var idleTime = MouseMover.GetIdleTime();
             label.Content = idleTime.ToString();
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var exitInMinutesValue = (int) e.NewValue;
+            ExitInTime = TimeSpan.FromMinutes(exitInMinutesValue);
+            if(null != exitInButton)
+                exitInButton.Content = $"Exit in {ExitInTime:hh\\:mm} hh:mm";
+        }
+        private TimeSpan ExitInTime { get; set; }
+
+        private void exitInButton_Click(object sender, RoutedEventArgs e)
+        {
+            exitInButton.IsEnabled = false;
+            ExitSlider.IsEnabled = false;
+
+            var dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += (o, args) =>
+            {
+                Application.Current.Shutdown();
+            };
+            dispatcherTimer.Interval = ExitInTime;
+            dispatcherTimer.Start();
         }
     }
 }

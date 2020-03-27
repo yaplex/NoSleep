@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoSleep", "NoSleep\NoSleep.csproj", "{57540F6E-D505-45F8-A78D-396553A7076C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yaplex.NoSleep", "NoSleep\Yaplex.NoSleep.csproj", "{57540F6E-D505-45F8-A78D-396553A7076C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {80E6C052-3E53-411A-A127-4CBBE9AA377A}
 	EndGlobalSection
 EndGlobal
