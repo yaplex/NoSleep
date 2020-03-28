@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NoSleep"
-        mc:Ignorable="d" Height="152.623" Width="595.38" ResizeMode="CanMinimize" Title="NoSleep - Yaplex Inc. (https://www.yaplex.com)" Icon="yaplex-no-sleep@0.5x.png">
+        mc:Ignorable="d" Height="171.156" Width="633.802" ResizeMode="CanMinimize" Title="NoSleep - Yaplex Inc. (https://www.yaplex.com)" Icon="yaplex-no-sleep@0.5x.png">
     <Grid Margin="0,0,5,9.859">
         <Grid.RowDefinitions>
             <RowDefinition Height="69*"/>
@@ -13,10 +13,9 @@
         <Button x:Name="button" Content="Start NoSleep" Margin="14,15,0,0" VerticalAlignment="Top" Click="button_Click" HorizontalAlignment="Left" Width="130"/>
         <Label x:Name="label" Content="Label" Margin="298,10,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="1.556,0.519" HorizontalAlignment="Left" Width="320"/>
         <Label x:Name="label1" Content="Last user activity:" Margin="160,10,0,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Left" Width="129"/>
-        <TextBlock x:Name="AppIsRunningMessage" Visibility="Hidden" TextWrapping="WrapWithOverflow" Margin="14,82,10,-4.8" 
-                   FontSize="14" Foreground="#FF900808" FontWeight="Bold" TextAlignment="Center" Grid.RowSpan="2"><Run Text="The computer "/><Run Text="will "/><Run Text="not go to sleep while this app is running."/></TextBlock>
         <Slider x:Name="ExitSlider" Margin="160,52,9.8,0" VerticalAlignment="Top" Maximum="540" ValueChanged="Slider_ValueChanged" LargeChange="10" SmallChange="1"/>
-        <Button x:Name="exitInButton" Content="Exit" Margin="14,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="129" Click="exitInButton_Click" />
+        <Button x:Name="exitInButton" Content="Exit" Margin="14,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="129" Click="exitInButton_Click"  />
+        <Label x:Name="StatusLabel" Content="Status: Running, PC will not go to sleep mode." Margin="14,84,9.6,0" VerticalAlignment="Top" Foreground="#FF088F1A"/>
 
     </Grid>
 </Window>

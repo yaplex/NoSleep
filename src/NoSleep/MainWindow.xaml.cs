@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Threading;
+using Yaplex.NoSleep;
 
 namespace NoSleep
 {
@@ -24,28 +25,30 @@ namespace NoSleep
                     System.Deployment.Application.ApplicationDeployment.CurrentDeployment;
                 NoSleepWindow.Title = $"NoSleep - Yaplex Inc. (https://www.yaplex.com) - {cd.CurrentVersion}";
             }
+
+            StatusLabel.Visibility = Visibility.Hidden;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
             button.IsEnabled = false;
-            AppIsRunningMessage.Visibility = Visibility.Visible;
+            StatusLabel.Visibility = Visibility.Visible;
 
-            var dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += moveMouse_tick;
-            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(2500);
-            dispatcherTimer.Start();
+            var activityTimer = new DispatcherTimer();
+            activityTimer.Tick += makeActive_tick;
+            activityTimer.Interval = TimeSpan.FromMilliseconds(5500);
+            activityTimer.Start();
         }
 
-        private void moveMouse_tick(object sender, EventArgs e)
+        private void makeActive_tick(object sender, EventArgs e)
         {
-            MouseMover.MakeActive();
+            InputSimulator.SimulateInput();
         }
 
         private void displayLastUserActivity_tick(object sender, EventArgs e)
         {
-            var idleTime = MouseMover.GetIdleTime();
-            label.Content = idleTime.ToString();
+            var idleTime = InputSimulator.GetIdleTime();
+            label.Content = $"{idleTime:mm\\:ss\\:ffff} seconds";
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -56,7 +59,8 @@ namespace NoSleep
                 exitInButton.Content = $"Exit in {ExitInTime:hh\\:mm} hh:mm";
         }
         private TimeSpan ExitInTime { get; set; }
-
+        
+        
         private void exitInButton_Click(object sender, RoutedEventArgs e)
         {
             exitInButton.IsEnabled = false;
@@ -69,6 +73,17 @@ namespace NoSleep
             };
             dispatcherTimer.Interval = ExitInTime;
             dispatcherTimer.Start();
+
+            var dt = DateTime.Now;
+
+            var countDownTimer = new DispatcherTimer();
+            countDownTimer.Interval = TimeSpan.FromSeconds(1);
+            countDownTimer.Tick += (o, args) =>
+            {
+                var difference = ExitInTime - (DateTime.Now - dt);
+                StatusLabel.Content = $"Status: Running, PC will not go to sleep mode. Auto exit in {difference:hh\\:mm\\:ss}";
+            };
+            countDownTimer.Start();
         }
     }
 }

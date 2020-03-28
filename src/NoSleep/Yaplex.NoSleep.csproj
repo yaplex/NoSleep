@@ -95,6 +95,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="User32\HARDWAREINPUT.cs" />
+    <Compile Include="User32\INPUT.cs" />
+    <Compile Include="User32\KEYBDINPUT.cs" />
+    <Compile Include="User32\KeyboardFlag.cs" />
+    <Compile Include="User32\LASTINPUTINFO.cs" />
+    <Compile Include="User32\MouseFlag.cs" />
+    <Compile Include="User32\MOUSEINPUT.cs" />
+    <Compile Include="User32\MOUSEKEYBDHARDWAREINPUT.cs" />
+    <Compile Include="User32\User32Native.cs" />
+    <Compile Include="User32\VirtualKeyCode.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -109,7 +119,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MouseMover.cs" />
+    <Compile Include="InputSimulator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -152,6 +162,7 @@
   <ItemGroup>
     <Resource Include="yaplex-no-sleep%400.5x.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
