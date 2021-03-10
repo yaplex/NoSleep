@@ -18,31 +18,37 @@ namespace NoSleep
             dispatcherTimer.Tick += displayLastUserActivity_tick;
             dispatcherTimer.Interval = TimeSpan.FromMilliseconds(100);
             dispatcherTimer.Start();
-
-            if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
-            {
-                System.Deployment.Application.ApplicationDeployment cd =
-                    System.Deployment.Application.ApplicationDeployment.CurrentDeployment;
-                NoSleepWindow.Title = $"NoSleep - Yaplex Inc. (https://www.yaplex.com) - {cd.CurrentVersion}";
-            }
-
             StatusLabel.Visibility = Visibility.Hidden;
+
+            ActivateNoSleep();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void ActivateNoSleep()
         {
-            button.IsEnabled = false;
             StatusLabel.Visibility = Visibility.Visible;
 
             var activityTimer = new DispatcherTimer();
             activityTimer.Tick += makeActive_tick;
-            activityTimer.Interval = TimeSpan.FromMilliseconds(5500);
+            activityTimer.Interval = TimeSpan.FromMilliseconds(2500);
             activityTimer.Start();
         }
 
+
         private void makeActive_tick(object sender, EventArgs e)
         {
-            InputSimulator.SimulateInput();
+            if (NineToFive.IsChecked.HasValue && NineToFive.IsChecked.Value)
+            {
+                var time = DateTime.Now;
+                if (TimeSpan.Compare(time.TimeOfDay, TimeSpan.FromHours(9)) > 0 
+                && TimeSpan.Compare(time.TimeOfDay, TimeSpan.FromHours(17) ) < 0)
+                {
+                    InputSimulator.SimulateInput();
+                }
+            }
+            else
+            {
+                InputSimulator.SimulateInput();
+            }
         }
 
         private void displayLastUserActivity_tick(object sender, EventArgs e)
@@ -81,7 +87,7 @@ namespace NoSleep
             countDownTimer.Tick += (o, args) =>
             {
                 var difference = ExitInTime - (DateTime.Now - dt);
-                StatusLabel.Content = $"Status: Running, PC will not go to sleep mode. Auto exit in {difference:hh\\:mm\\:ss}";
+                StatusLabel.Content = $"Auto exit in {difference:hh\\:mm\\:ss}";
             };
             countDownTimer.Start();
         }
