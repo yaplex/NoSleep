@@ -29,7 +29,7 @@ namespace NoSleep
 
             var activityTimer = new DispatcherTimer();
             activityTimer.Tick += makeActive_tick;
-            activityTimer.Interval = TimeSpan.FromMilliseconds(2500);
+            activityTimer.Interval = TimeSpan.FromMilliseconds(25000);
             activityTimer.Start();
         }
 
